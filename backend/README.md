@@ -75,8 +75,8 @@ Before you begin, ensure you have the following installed:
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/axlcr/universities-management-api.git
-   cd universities-management-api
+   git clone https://github.com/axlcr/universities-management.git
+   cd universities-management
    ```
 
 2. **Install Dependencies**
@@ -95,8 +95,8 @@ Before you begin, ensure you have the following installed:
    default: &default
      adapter: postgresql
      encoding: unicode
-     username: your_username    # Replace with your PostgreSQL username
-     password: your_password    # Replace with your PostgreSQL password
+     username: your_username    # Replace with your PostgreSQL username (i use by default "postgres")
+     password: your_password    # Replace with your PostgreSQL password (i use by default an empty passoword)
      host: localhost
      pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
    ```

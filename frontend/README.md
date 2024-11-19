@@ -1,46 +1,134 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Universities Management - Frontend
 
-## Available Scripts
+This is the **frontend** application for the **Universities Management** system. It is built using **React.js** and **TypeScript**, styled with **TailwindCSS**, and communicates with the backend API built with Ruby on Rails.
 
-In the project directory, you can run:
+## 🚀 Getting Started
 
-### `npm start`
+### Prerequisites
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Ensure the following are installed on your machine:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **Node.js** (version 16.x or higher)
+- **npm** (comes with Node.js) or **Yarn**
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the repository**:
 
-### `npm run build`
+   ```bash
+   git clone https://github.com/axlcr/universities-management.git
+   cd universities-management/frontend
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install the project dependencies**:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Create a `.env` file** in the `frontend` directory. Add the following variable:
 
-### `npm run eject`
+   ```env
+   PORT=3001
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+4. **Start the development server**:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm start
+   # or
+   yarn start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+   The app will be accessible at [http://localhost:3001](http://localhost:3001).
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
+## 🛠️ Project Structure
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Here’s an overview of the folder structure:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+frontend/
+├── src/
+│   ├── components/       # Reusable UI components
+│   │   ├── AddUniversityForm.tsx
+│   │   ├── EditUniversityForm.tsx
+│   │   ├── Modal.tsx
+│   │   ├── Spinner.tsx
+│   │   └── UniversitiesTable.tsx
+│   ├── services/         # API calls and utilities
+│   │   └── api.ts
+│   ├── types/            # TypeScript interfaces and types
+│   │   └── University.ts
+│   ├── App.tsx           # Main application file
+│   ├── index.tsx         # Entry point for React
+│   └── index.css         # Global styles
+├── public/               # Static assets
+├── .env                  # Environment variables
+├── tailwind.config.js    # TailwindCSS configuration
+├── package.json          # Project dependencies and scripts
+└── tsconfig.json         # TypeScript configuration
+```
+
+---
+
+## 📋 Available Scripts
+
+The following scripts are available in the `frontend` directory:
+
+### `npm start` / `yarn start`
+
+Runs the development server. Open [http://localhost:3001](http://localhost:3001) to view the app in your browser.
+
+### `npm test` / `yarn test`
+
+Launches the test runner for unit and integration tests.
+
+### `npm run build` / `yarn build`
+
+Builds the application for production. The build artifacts are stored in the `build` directory.
+
+### `npm run lint` / `yarn lint`
+
+Runs linting checks to ensure code quality and consistency.
+
+---
+
+## ✨ Key Features
+
+- **Universities Management**: Add, edit, and view universities.
+- **Form Validation**: Type-safe validation using Zod.
+- **Reusable Components**: Modular structure for scalability.
+- **TailwindCSS Styling**: Rapid UI development with utility-first classes.
+
+---
+
+## 🌐 Environment Variables
+
+The app uses environment variables defined in a `.env` file. For this project, you only need:
+
+```env
+PORT=3001
+```
+
+This specifies the port on which the development server runs.
+
+---
+
+## 🛡️ License
+
+This project is licensed under the [MIT License](LICENSE). Feel free to use it as a base for your own projects.
+
+---
+
+## 👥 Author
+
+- **Axl Blandon** - [axlblandonm@gmail.com](mailto:axlblandonm@gmail.com)
+- [GitHub Repository](https://github.com/axlcr/universities-management)
+
+---
+
