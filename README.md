@@ -3,6 +3,8 @@
 
 This repository contains both the **backend** (API in Ruby on Rails) and the **frontend** (React.js with TypeScript and TailwindCSS) for the Universities Management application. Follow the steps below to install and run both projects.
 
+Each folder (`backend` and `frontend`) contains its own detailed README file with specific instructions for setup and usage.
+
 ---
 
 ## 🚀 Quick Installation
@@ -41,6 +43,10 @@ cd universities-management
 
    The server will be available at `http://localhost:3000`.
 
+For more details, check the [Backend README](backend/README.md).
+
+---
+
 ### 3. Frontend
 
 1. Navigate to the frontend directory:
@@ -68,6 +74,8 @@ cd universities-management
    ```
 
    The app will be available at `http://localhost:3001`.
+
+For more details, check the [Frontend README](frontend/README.md).
 
 ---
 
