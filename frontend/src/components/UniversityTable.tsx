@@ -9,6 +9,7 @@ const UniversityTable = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null);
   const [deleteMessage, setDeleteMessage] = useState('');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     fetchUniversities();
@@ -58,6 +59,10 @@ const UniversityTable = () => {
     }
   };
 
+  const filteredUniversities = universities.filter((university) =>
+    university.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container mx-auto px-4">
       {deleteMessage && (
@@ -65,6 +70,15 @@ const UniversityTable = () => {
           {deleteMessage}
         </div>
       )}
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Search universities by name..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded"
+        />
+      </div>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border border-gray-200">
           <thead className="bg-gray-100">
@@ -77,7 +91,7 @@ const UniversityTable = () => {
             </tr>
           </thead>
           <tbody>
-            {universities.map((university, index) => (
+            {filteredUniversities.map((university, index) => (
               <tr
                 key={university.id}
                 className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
@@ -113,6 +127,16 @@ const UniversityTable = () => {
                 </td>
               </tr>
             ))}
+            {filteredUniversities.length === 0 && (
+              <tr>
+                <td
+                  colSpan={5}
+                  className="py-4 px-4 border-b border-gray-200 text-center text-gray-500"
+                >
+                  No universities found.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
