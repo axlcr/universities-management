@@ -13,6 +13,9 @@ const UniversityTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
+  const [sortColumn, setSortColumn] = useState<string>('name');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
   useEffect(() => {
     fetchUniversities();
   }, []);
@@ -65,9 +68,24 @@ const UniversityTable = () => {
     university.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const sortedUniversities = [...filteredUniversities].sort((a, b) => {
+    let aValue: any = a[sortColumn as keyof University];
+    let bValue: any = b[sortColumn as keyof University];
+
+    if (Array.isArray(aValue)) aValue = aValue.join(', ');
+    if (Array.isArray(bValue)) bValue = bValue.join(', ');
+
+    if (typeof aValue === 'string') aValue = aValue.toLowerCase();
+    if (typeof bValue === 'string') bValue = bValue.toLowerCase();
+
+    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+    return 0;
+  });
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentUniversities = filteredUniversities.slice(indexOfFirstItem, indexOfLastItem);
+  const currentUniversities = sortedUniversities.slice(indexOfFirstItem, indexOfLastItem);
 
   const totalPages = Math.ceil(filteredUniversities.length / itemsPerPage);
 
@@ -78,6 +96,23 @@ const UniversityTable = () => {
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
+  };
+
+  const handleSort = (column: string) => {
+    if (sortColumn === column) {
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortOrder('asc');
+    }
+    setCurrentPage(1);
+  };
+
+  const renderSortIcon = (column: string) => {
+    if (sortColumn === column) {
+      return sortOrder === 'asc' ? '▲' : '▼';
+    }
+    return null;
   };
 
   return (
@@ -104,10 +139,30 @@ const UniversityTable = () => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead className="bg-gray-100">
             <tr>
-              <th className="py-2 px-4 border-b border-gray-200 text-left">Name</th>
-              <th className="py-2 px-4 border-b border-gray-200 text-left">Location</th>
-              <th className="py-2 px-4 border-b border-gray-200 text-left">Website</th>
-              <th className="py-2 px-4 border-b border-gray-200 text-left">Contact Emails</th>
+              <th
+                className="py-2 px-4 border-b border-gray-200 text-left cursor-pointer select-none"
+                onClick={() => handleSort('name')}
+              >
+                Name {renderSortIcon('name')}
+              </th>
+              <th
+                className="py-2 px-4 border-b border-gray-200 text-left cursor-pointer select-none"
+                onClick={() => handleSort('location')}
+              >
+                Location {renderSortIcon('location')}
+              </th>
+              <th
+                className="py-2 px-4 border-b border-gray-200 text-left cursor-pointer select-none"
+                onClick={() => handleSort('website')}
+              >
+                Website {renderSortIcon('website')}
+              </th>
+              <th
+                className="py-2 px-4 border-b border-gray-200 text-left cursor-pointer select-none"
+                onClick={() => handleSort('contact_emails')}
+              >
+                Contact Emails {renderSortIcon('contact_emails')}
+              </th>
               <th className="py-2 px-4 border-b border-gray-200 text-center">Actions</th>
             </tr>
           </thead>
