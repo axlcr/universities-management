@@ -8,7 +8,7 @@ class University < ApplicationRecord
   private
 
   def validate_contact_emails
-    if contact_emails.empty?
+    if contact_emails.blank? || !contact_emails.is_a?(Array)
       errors.add(:contact_emails, 'must have at least one email')
     else
       contact_emails.each do |email|
