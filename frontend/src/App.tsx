@@ -1,13 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import UniversityTable from './components/UniversityTable';
+import AddUniversityForm from './components/AddUniversityForm';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-
+    <div className="container mx-auto p-4">
+      <h1 className="text-2xl font-bold mb-4">Universities</h1>
+      <AddUniversityForm />
+      <UniversityTable />
     </div>
   );
-}
+};
 
 export default App;
