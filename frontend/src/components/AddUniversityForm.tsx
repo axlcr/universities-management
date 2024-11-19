@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm, useFieldArray, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import api from '../services/api';
+import Spinner from '../components/Spinner';
 
 const schema = z.object({
   name: z.string().nonempty('Name is required'),
@@ -16,6 +17,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const AddUniversityForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     control,
@@ -37,6 +40,7 @@ const AddUniversityForm = () => {
   });
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
+    setIsSubmitting(true);
     const transformedData = {
       ...data,
       contact_emails: data.contact_emails.map((item) => item.email),
@@ -44,9 +48,13 @@ const AddUniversityForm = () => {
 
     api.post('/universities', transformedData)
       .then(() => {
+        setIsSubmitting(false);
         window.location.reload();
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        setIsSubmitting(false);
+        console.error(error);
+      });
   };
 
   return (
@@ -106,13 +114,20 @@ const AddUniversityForm = () => {
         )}
       </div>
 
-      {/* Mover el botón a la derecha */}
-      <div className="flex justify-end mt-6 border-t pt-4">
+      <div className="flex justify-end mt-6">
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-200 flex items-center"
+          disabled={isSubmitting}
         >
-          Add University
+          {isSubmitting ? (
+            <>
+              <Spinner />
+              <span className="ml-2">Submitting...</span>
+            </>
+          ) : (
+            'Add University'
+          )}
         </button>
       </div>
     </form>
