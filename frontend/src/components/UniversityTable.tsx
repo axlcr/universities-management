@@ -10,6 +10,8 @@ const UniversityTable = () => {
   const [selectedUniversity, setSelectedUniversity] = useState<University | null>(null);
   const [deleteMessage, setDeleteMessage] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     fetchUniversities();
@@ -63,6 +65,21 @@ const UniversityTable = () => {
     university.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentUniversities = filteredUniversities.slice(indexOfFirstItem, indexOfLastItem);
+
+  const totalPages = Math.ceil(filteredUniversities.length / itemsPerPage);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="container mx-auto px-4">
       {deleteMessage && (
@@ -75,8 +92,12 @@ const UniversityTable = () => {
           type="text"
           placeholder="Search universities by name..."
           value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
           className="w-full p-2 border border-gray-300 rounded"
+          aria-label="Search universities by name"
         />
       </div>
       <div className="overflow-x-auto">
@@ -91,7 +112,7 @@ const UniversityTable = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredUniversities.map((university, index) => (
+            {currentUniversities.map((university, index) => (
               <tr
                 key={university.id}
                 className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}
@@ -127,7 +148,7 @@ const UniversityTable = () => {
                 </td>
               </tr>
             ))}
-            {filteredUniversities.length === 0 && (
+            {currentUniversities.length === 0 && (
               <tr>
                 <td
                   colSpan={5}
@@ -140,6 +161,48 @@ const UniversityTable = () => {
           </tbody>
         </table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="flex flex-wrap justify-center mt-4 space-x-2">
+          <button
+            onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className={`px-3 py-1 rounded ${
+              currentPage === 1
+                ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+          >
+            Previous
+          </button>
+
+          {pageNumbers.map((number) => (
+            <button
+              key={number}
+              onClick={() => handlePageChange(number)}
+              className={`px-3 py-1 rounded ${
+                currentPage === number
+                  ? 'bg-blue-600 text-white'
+                  : 'bg-blue-500 text-white hover:bg-blue-600'
+              }`}
+            >
+              {number}
+            </button>
+          ))}
+
+          <button
+            onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className={`px-3 py-1 rounded ${
+              currentPage === totalPages
+                ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
+                : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+          >
+            Next
+          </button>
+        </div>
+      )}
 
       {isEditModalOpen && selectedUniversity && (
         <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
