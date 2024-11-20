@@ -3,7 +3,7 @@
 
 This is the **frontend** application for the **Universities Management** system. It is built using **React.js** and **TypeScript**, styled with **TailwindCSS**, and communicates with the backend API built with Ruby on Rails.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -83,18 +83,6 @@ The following scripts are available in the `frontend` directory:
 ### `npm start` / `yarn start`
 
 Runs the development server. Open [http://localhost:3001](http://localhost:3001) to view the app in your browser.
-
-### `npm test` / `yarn test`
-
-Launches the test runner for unit and integration tests.
-
-### `npm run build` / `yarn build`
-
-Builds the application for production. The build artifacts are stored in the `build` directory.
-
-### `npm run lint` / `yarn lint`
-
-Runs linting checks to ensure code quality and consistency.
 
 ---
 
