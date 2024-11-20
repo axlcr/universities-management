@@ -7,7 +7,7 @@ Each folder (`backend` and `frontend`) contains its own detailed README file wit
 
 ---
 
-## 🚀 Quick Installation
+## Quick Installation
 
 ### 1. Clone the Repository
 
@@ -49,9 +49,9 @@ For more details, check the [Backend README](backend/README.md).
 
 ### 3. Frontend
 
-1. Navigate to the frontend directory:
+1. Open another tab and navigate to the frontend directory
    ```bash
-   cd frontend
+   cd universities-management/frontend
    ```
 
 2. Install dependencies:
@@ -79,4 +79,4 @@ For more details, check the [Frontend README](frontend/README.md).
 
 ---
 
-Now both projects are running locally. Happy coding!
+Now both projects are running locally.
